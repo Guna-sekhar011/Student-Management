@@ -1,5 +1,6 @@
 package com.avinsystems
 
+
 import java.util.List
 import java.util.ArrayList
 import java.util.Scanner
@@ -37,7 +38,7 @@ class StudentManagement {
 	
 		val students = new ArrayList<Student>();
 		val scan = new Scanner(System.in);
-		val exit =false;
+		
 		while(true){
 			println("1. Add a student");
 			println("2. View all students");
@@ -66,23 +67,76 @@ class StudentManagement {
 					students.add(new Student(name,rollNo,marks))
 					println("Student added successfully")
 				}
-				case 2:{
-					if(students.isEmpty){
-						println("No Students found");
-						
-					}
-					else{
-						val std = new Student();
-						println("Students records: ");
-						for(Student student: students){
-							println(std.getStudent());
-							
-						}
-					}
+				case 2: {
+    				if (students.isEmpty) {
+        			println("No Students found");
+    				} else {
+        				println("Students records: ");
+        				for (Student student : students) {
+            				println(student.getStudent()); 
+        				}
+    				}
+    			}
+    			case 3:{
+    				if (students.isEmpty) {
+        				println("No Students found");
+    				} else {
+        				println("Enter roll number to search: ");
+        				val rollNoToSearch = scan.nextInt();
+        				scan.nextLine();
+
+        				var Student studentFound = null;
+        				for (Student student : students) {
+            				if (student.getRollNo() == rollNoToSearch) {
+                				studentFound = student;
+                			
+            			}
+        			}
+
+        			if (studentFound !== null) {
+            			println("Student found: ");
+            			println(studentFound.getStudent());
+        			} else {
+            			println("No student found with roll number " + rollNoToSearch);
+        				}
+        			}
 				}
-				
-				
-				
+				case 4: {
+    				if (students.isEmpty) {
+        				println("No Students found");
+    				} else {
+        				println("Enter roll number to calculate average marks: ");
+        				val rollNoToSearch = scan.nextInt();
+        				scan.nextLine();
+
+        				var Student studentFound = null;
+        				for (Student student : students) {
+            				if (student.getRollNo() == rollNoToSearch) {
+                				studentFound = student;
+                				
+            					}
+        				}	
+
+        			if (studentFound !== null) {
+            			val marks = studentFound.getMarks();
+            			if (!marks.isEmpty) {
+                			var total = 0;
+                			for (int mark : marks) {
+                    			total += mark;
+                			}			
+                			val average = total / marks.size;
+                			println("Average marks for " + studentFound.getName() + " (Roll No: " + rollNoToSearch + "): " + average);
+            			} else {
+                			println("No marks available for the student.");
+            				}
+        				} else {
+            				println("No student found with roll number " + rollNoToSearch);
+        				}	
+    				}
+				}
+				case 5:{
+					return;
+				}
 			}
 		}
 	}
